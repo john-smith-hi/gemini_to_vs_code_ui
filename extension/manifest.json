@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini Cursor Skin",
+  "version": "1.0.0",
+  "description": "Phủ giao diện Cursor lên Gemini. Ô chat thật của Gemini vẫn nhận phím, IME và gửi tin.",
+  "permissions": ["storage", "windows"],
+  "host_permissions": ["https://gemini.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Gemini Cursor Skin",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "toggle-skin": {
+      "suggested_key": {
+        "default": "Alt+Shift+C",
+        "windows": "Alt+Shift+C",
+        "mac": "Alt+Shift+C"
+      },
+      "description": "Bật hoặc tắt giao diện Cursor trên Gemini"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "css": ["content/theme.css"],
+      "js": [
+        "content/highlight.js",
+        "content/probe.js",
+        "content/shell.js",
+        "content/layout.js",
+        "content/editor.js",
+        "content/agent.js",
+        "content/explorer.js",
+        "content/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["https://gemini.google.com/*"]
+    }
+  ]
+}
