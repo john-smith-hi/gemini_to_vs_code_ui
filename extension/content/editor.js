@@ -214,6 +214,14 @@
     return editor.files.find((file) => file.id === editor.activeId) || editor.files[0];
   }
 
+  const NOTE_RULE = "================================";
+
+  function wrapNote(text) {
+    const cleaned = String(text || "").replace(/\r/g, "").trim();
+    if (!cleaned) return "";
+    return cleaned + "\n" + NOTE_RULE;
+  }
+
   function fileText(file) {
     if (!file) return "";
     const body = file.body != null ? file.body : file.base;
@@ -237,7 +245,7 @@
     const presetId = current && !current.generated ? current.id : "preset:printAll.php";
     clearGenerated();
     const file = editor.files.find((item) => item.id === presetId) || editor.files.find((item) => item.name === "printAll.php");
-    file.note = text ? H().commentWrap(text, file.lang) : "";
+    file.note = text ? wrapNote(text) : "";
     file.dirty = !!streaming || file.body !== file.base;
     editor.activeId = file.id;
     if (!editor.openIds.includes(file.id)) editor.openIds.push(file.id);
@@ -370,7 +378,7 @@
     rememberBody(file, input.value);
     file.dirty = file.body !== file.base;
     editor.renderedKey = "";
-    paintLines(input.value, file.lang);
+    paintLines(input.value, file.lang, file.note);
     sizeInput();
     drawMinimap();
     const tab = editor.host.querySelector(".cs-tab.active");
@@ -402,7 +410,7 @@
     if (input.value !== next) {
       input.value = next;
       editor.renderedKey = "";
-      paintLines(next, file.lang);
+      paintLines(next, file.lang, file.note);
       sizeInput();
     }
     scheduleSave(file);
@@ -476,7 +484,7 @@
     crumb.textContent = parts.join("  >  ");
     if (key !== editor.renderedKey) {
       editor.renderedKey = key;
-      paintLines(text, file.lang);
+      paintLines(text, file.lang, file.note);
     }
     syncInput(text);
     drawMinimap();
@@ -484,9 +492,17 @@
     if (editor.onOpenChange) editor.onOpenChange();
   }
 
-  function paintLines(text, lang) {
+  function paintLines(text, lang, note) {
     const linesHost = editor.host.querySelector(".cs-lines");
-    const highlighted = H().highlightLines(text, lang);
+    const source = String(text || "");
+    const prefix = String(note || "");
+    let highlighted;
+    if (prefix && source.startsWith(prefix)) {
+      const after = source.slice(prefix.length).replace(/^\n/, "");
+      highlighted = H().highlightLines(prefix, "plaintext").concat(H().highlightLines(after, lang));
+    } else {
+      highlighted = H().highlightLines(source, lang);
+    }
     const fragment = document.createDocumentFragment();
     highlighted.forEach((tokens, index) => {
       const row = node("div", "cs-line-row");
