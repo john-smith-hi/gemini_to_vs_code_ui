@@ -20,7 +20,10 @@ extension/
     agent.js             # hội thoại phải
     explorer.js          # cây file + GẦN ĐÂY
     main.js              # boot, observer, pin, new chat, stream phase
+    ntjc-mentions.css    # chỉ chat.ntjc.org: span[title="Mentions you"]
 ```
+
+Content script thứ hai (không JS): `https://chat.ntjc.org/*` và `http://chat.ntjc.org/*` → `ntjc-mentions.css`. Không gắn `theme.css` / skin Gemini.
 
 Nguồn tham chiếu (không phải runtime): `sources/gemini.html` (shell SSR ~788KB, **không** có turn đã hydrate), `images/vscode.png`, `images/gemini.png`.
 

@@ -1,4 +1,9 @@
-# Trạng thái phiên (2026-10-12)
+# Trạng thái phiên (2026-10-22)
+
+## 2026-10-22
+
+- Editor Gemini: phản hồi không còn `//`; sau dòng cuối là `================================` rồi mới tới code.
+- Thêm CSS `chat.ntjc.org`: `span[title="Mentions you"]` { color white, background red, padding 1px, border 1px solid red, border-radius 3px } tất cả `!important`. File `extension/content/ntjc-mentions.css`. Không đụng skin Gemini.
 
 ## Đã xong so với plan và feedback user
 

@@ -4,7 +4,11 @@
   "version": "1.0.0",
   "description": "Phủ giao diện Cursor lên Gemini. Ô chat thật của Gemini vẫn nhận phím, IME và gửi tin.",
   "permissions": ["storage", "windows"],
-  "host_permissions": ["https://gemini.google.com/*"],
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "https://chat.ntjc.org/*",
+    "http://chat.ntjc.org/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -46,6 +50,14 @@
         "content/explorer.js",
         "content/main.js"
       ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://chat.ntjc.org/*",
+        "http://chat.ntjc.org/*"
+      ],
+      "css": ["content/ntjc-mentions.css"],
       "run_at": "document_idle"
     }
   ],

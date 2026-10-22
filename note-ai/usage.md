@@ -12,6 +12,8 @@ Mục đích: Gemini vẫn là Gemini (gõ, IME tiếng Việt, Enter gửi), nh
 
 Mỗi lần sửa code extension: vào `chrome://extensions` → **Reload** extension này → F5 Gemini. Chỉ F5 trang thì Chrome vẫn chạy bản JS cũ.
 
+Cùng extension còn tô mention trên `https://chat.ntjc.org`: `span[title="Mentions you"]` nền đỏ, chữ trắng. Reload xong F5 trang chat. Không phủ skin Cursor lên NTJC.
+
 ## 2. Popup (icon extension trên thanh Chrome)
 
 - **Bật giao diện** — bật/tắt skin
